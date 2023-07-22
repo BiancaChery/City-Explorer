@@ -1,7 +1,7 @@
 # City Explorer
 
 **Author**: Bianca Chery
-**Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
+**Version**: 1.0.0 (a2932d3c71bcccaa496dcee7501fe2a41cec57f2)
 
 ## Overview
 A web server that allows the user to find the latitude and longitude of any city in the US by searching the city. 
