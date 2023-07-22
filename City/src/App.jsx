@@ -38,6 +38,7 @@ constructor() {
       <h1> {this.state.cityDisplayName} </h1>
       <p> latitude: {this.state.cityLat} </p>
       <p> longitude: {this.state.cityLon} </p>
+      <img src={`https://maps.locationiq.com/v3/staticmap?key=${mapKey}&center=${this.state.cityLat},${this.state.cityLon}&zoom=18`}/>
       <form onSubmit={this.handleSubmit}>    
       <label> city name: <input type="text" name="cityName"/></label>
       <button onClick={this.handleGetCities}>Explore!</button>
