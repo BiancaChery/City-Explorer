@@ -11,19 +11,21 @@ constructor() {
   this.state = {
     cityDisplayName: '',
     cityLat: '',
-    cityLon: '' 
+    cityLon: '',
+    cityName: '' 
   }
 }
 
   handleGetCities = async () => {
-    let result = await axios.get(`https://us1.locationiq.com/v1/search?key=${mapKey}&q=fort%20lauderdale&format=json`)
+    let result = await axios.get(`https://us1.locationiq.com/v1/search?key=${mapKey}&q={this.state.cityName}&format=json`)
     console.log(result)
     let data = result.data;
     console.log(data);
     this.setState({
       cityDisplayName: data[1].display_name,
       cityLat: data[1].lat,
-      cityLon: data[1].lon 
+      cityLon: data[1].lon, 
+      cityName: ''
     });
   }
 
@@ -40,7 +42,7 @@ constructor() {
       <p> longitude: {this.state.cityLon} </p>
       <img src={`https://maps.locationiq.com/v3/staticmap?key=${mapKey}&center=${this.state.cityLat},${this.state.cityLon}&zoom=18`}/>
       <form onSubmit={this.handleSubmit}>    
-      <label> city name: <input type="text" name="cityName"/></label>
+      <label> City name: <input type="text" name="cityName" value={this.state.cityName}/></label>
       <button onClick={this.handleGetCities}>Explore!</button>
       </form>
       </>
