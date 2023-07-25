@@ -16,35 +16,36 @@ constructor() {
   }
 }
 
-  handleGetCities = async () => {
-    let result = await axios.get(`https://us1.locationiq.com/v1/search?key=${mapKey}&q={this.state.cityName}&format=json`)
+  handleGetCities = async (event) => {
+    let result = await axios.get(`https://us1.locationiq.com/v1/search?key=${mapKey}&q=${this.state.cityName}&format=json`)
     console.log(result)
     let data = result.data;
     console.log(data);
     this.setState({
-      cityDisplayName: data[1].display_name,
-      cityLat: data[1].lat,
-      cityLon: data[1].lon, 
+      cityDisplayName: data[0].display_name,
+      cityLat: data[0].lat,
+      cityLon: data[0].lon, 
       cityName: ''
     });
   }
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("explore", event.target.cityName.value);
+  handleChange = (event) => {
+    this.setState({
+      cityName: event.target.value
+    })
   }
 
   render() {
     return (
       <>
+      <form onSubmit={this.handleGetCities}>    
+      <label> City name: <input type="text" name="cityName" value={this.state.cityName} onChange={this.handleChange}/></label>
+      <button type="submit">Explore!</button>
+      </form>
       <h1> {this.state.cityDisplayName} </h1>
       <p> latitude: {this.state.cityLat} </p>
       <p> longitude: {this.state.cityLon} </p>
       <img src={`https://maps.locationiq.com/v3/staticmap?key=${mapKey}&center=${this.state.cityLat},${this.state.cityLon}&zoom=18`}/>
-      <form onSubmit={this.handleSubmit}>    
-      <label> City name: <input type="text" name="cityName" value={this.state.cityName}/></label>
-      <button onClick={this.handleGetCities}>Explore!</button>
-      </form>
       </>
     )
   }
